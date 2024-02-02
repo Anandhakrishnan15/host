@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require ("cors")
 const mongoose = require("mongoose");
 const ConnetDB = require("./database/DBconnect")//import data bse connecction
+const errorHandeler= require("./midleravare/errorHandeler")
 
 const router = require("./router/routers")
 
@@ -11,6 +12,7 @@ const app = express()
  app.use(express.json())
 
  app.use("/",router)
+ app.use(errorHandeler)
 
 const port = process.env.PORT
  ConnetDB().then(()=>{

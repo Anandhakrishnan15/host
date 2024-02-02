@@ -1,4 +1,5 @@
 // importing the user module
+// const { response } = require("express")
 const User = require ("../ModulesMongooes/UserModule")
 
 const home=async(req,res)=>{
@@ -26,24 +27,46 @@ const register=async(req,res,next)=>{
         const userRegistered= await User.create({
             username,email,phone, password
         })
-        res.status(499).json({
+        res.status(200).json({
             message:"register completed",
-            data:userRegistered
+            data:userRegistered,
+            userId: userRegistered._id.toString(),
+            token:await userRegistered.genToke(),
     })
      }
     } catch (error) {
-            res.status(200).send("reg error ")
+            // res.status(200).send("reg error ")
             next(error)
         
     }
 }
 
-const login=async(req,res)=>{
+const login=async(req,res,next)=>{
     try {
-    res.status(200).send("login page ")        
-    } catch (error) {
-        res.status(200).send("loerror ")
-        
+    // res.status(200).send("login page ")    
+    const {email,password}=req.body;
+    const isemailThere = await User.findOne({email})
+    if(!isemailThere){
+        res.status(403)
+        .json({message:"email is not there try to register"})
+    }
+    const pwdCompair = await isemailThere.compairePwd(password);
+    console.log(pwdCompair);
+    if(pwdCompair){
+        res.status(200).json({message : "login successfull",
+        token:await isemailThere.genToke(),
+        userId : isemailThere._id.toString()
+    })
+    }
+    else{
+        console.log("login sucessfull");
+    }
+    }
+    catch (error) {
+        res.status(400)
+        console.log("login error",error);
+        next(error)
+    
     }
 }
 
