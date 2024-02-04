@@ -17,5 +17,13 @@ router.route("/register").post(validater(registerValidatioin),controller.registe
 // login page
 router.route("/login").post(validater(loginVAlidater),controller.login)
 
+//find use bt paramerte id
+router.route("/user/:userId").get(controller.USER)
+
+//to get all userss data drom the data base
+router.route("/users").get(controller.allUsers)
+
+
+
 
 module.exports = router

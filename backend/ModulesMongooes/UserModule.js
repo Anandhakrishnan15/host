@@ -8,6 +8,9 @@ const userModule = new mongoose.Schema({
     phone:{type:String,require:true},
     password:{type:String,require:true},
     admit:{type:Boolean,default:false}
+},
+{
+    timestamps:true,
 })
 userModule.pre("save",async function(next){
     const user = this

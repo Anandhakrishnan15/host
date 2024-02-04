@@ -6,7 +6,7 @@ const home=async(req,res)=>{
     try {
     res.status(200).send("hello..!!")        
     } catch (error) {
-            res.status(200).send("error!")
+            res.status(400).send("error!")
         
     }
 }
@@ -49,9 +49,12 @@ const login=async(req,res,next)=>{
     if(!isemailThere){
         res.status(403)
         .json({message:"email is not there try to register"})
+        console.log("password comparsion", pwdCompair);
     }
+    else{
     const pwdCompair = await isemailThere.compairePwd(password);
-    console.log(pwdCompair);
+
+    console.log("password comparision ",pwdCompair);
     if(pwdCompair){
         res.status(200).json({message : "login successfull",
         token:await isemailThere.genToke(),
@@ -59,9 +62,10 @@ const login=async(req,res,next)=>{
     })
     }
     else{
-        console.log("login sucessfull");
+        console.log("pwd wrong ");
     }
     }
+}
     catch (error) {
         res.status(400)
         console.log("login error",error);
@@ -70,7 +74,32 @@ const login=async(req,res,next)=>{
     }
 }
 
+const USER =async(req,res)=>{
+    const userId=req.params.userId
+    try {
+        const findUser = await User.findById(userId).select({
+        //this select method will make sur that the passwor is not show while the 
+            password: 0
+        })
+        res.status(200).json(findUser)
+
+    } catch (error) {
+          res.status(403).send("user id error ",error)
+    }
+
+}
+const allUsers = async(req,res)=>{
+    try {
+        //get all the data from the database and make suer that the passwor and other imp data are not shown
+        const getAllUssers = await User.find().select({password:0 })//to hide the password
+        res.status(200).json({
+            allUsers:getAllUssers
+        })
+    } catch (error) {
+        res.status(403).send("error to find all users ",error)
+        
+    }
+}
 
 
-
-module.exports = {home,register,login}
+module.exports = {home,register,login,USER,allUsers}
