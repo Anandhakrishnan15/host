@@ -3,6 +3,7 @@ const router = express.Router()
 const controller = require("./controller")
 const validater = require('../midleravare/AuthValidateMiddleware')
 const {registerValidatioin,loginVAlidater} = require('../zod_validater/zod_register')
+const dataVArification = require("../midleravare/jwtVarifier")
 
 
 
@@ -23,6 +24,8 @@ router.route("/user/:userId").get(controller.USER)
 //to get all userss data drom the data base
 router.route("/users").get(controller.allUsers)
 
+//user fetch data 
+router.route("/api/data").get(dataVArification,controller.colletctData)
 
 
 

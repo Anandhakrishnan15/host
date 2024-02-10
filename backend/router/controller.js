@@ -101,5 +101,18 @@ const allUsers = async(req,res)=>{
     }
 }
 
+const colletctData = async(req,res,next)=>{
+    try {
+        const userData = req.data
+        res.status(200)
+        .json({message:userData})
+        next()
+    } catch (error) {
+        res.status(400)
+        .send({message: "page not found" })
+    console.log(error);
+    }
 
-module.exports = {home,register,login,USER,allUsers}
+}
+
+module.exports = {home,register,login,USER,allUsers,colletctData}

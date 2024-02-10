@@ -1,0 +1,13 @@
+
+.navbarCPntainer{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+.navboxs{
+margin: 0 10px;
+}
+.navholders{
+    display: flex;
+}
