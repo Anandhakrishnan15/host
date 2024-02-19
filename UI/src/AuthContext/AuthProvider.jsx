@@ -16,18 +16,18 @@ import React, { createContext, useContext, useState } from 'react'
 export const userAuth = createContext()
 
 export const AuthProvider = ({children}) => {
-  // const [token,setToken] = useState(localStorage.getItem("Token"));//store token in localstorage
+  const [token,setToken] = useState(localStorage.getItem("Token"));//store token in localstorage
 
   //store token in localstorage function
-  const storeToken =()=>{
-    // return localStorage.setItem('Token',Tokenprovided)
+  const storeToken =(Tokenprovided)=>{
+    return localStorage.setItem('Token',Tokenprovided)
 
   }
-  // console.log(typeof(token))
-  // console.log("did i get the token")
+  console.log(typeof(token))
+  console.log("did i get the token")
   // console.log(typeof(getToken))
   const userLogOut = () => {
-    // setToken("");
+    setToken("");
     return localStorage.removeItem("Token");
     
   };
