@@ -20,6 +20,7 @@ const NavBar = () => {
          <p>login</p>
           </div>
         </NavLink>
+        <NavLink to="/logout"><p>Logout</p></NavLink>
       </div>
     </div>
   );

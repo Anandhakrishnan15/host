@@ -1,11 +1,14 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { AuthUser } from '../../AuthContext/AuthProvider';
+import {useNavigate} from "react-router-dom"
 
 const LoginForm = () => {
+
     //make a login state hook
 const [luser,setLuser] = useState({
-    email:"",
-    password:""
+    email:"siji1234@gmail.com",
+    password:"siji1234"
 })
 const inputHandeler = (e)=>{
     console.log(e);
@@ -13,24 +16,38 @@ const inputHandeler = (e)=>{
     let value = e.target.value;
     setLuser({
         ...luser,
-        [name]:value
+        [name]:value,
     })
 }
-
+const {storeToken} = AuthUser()
+const navigate = useNavigate()
 // make login form submiter and get the backend and insert or ue the login logic
 // to make any backend or fetch process alwwys user acyns or promise method
 const loginsubmit= async(e)=>{
     e.preventDefault()
     //get the api for login
     try {
-        const responces = await axios.post("http://localhost:2000/login",luser)
-        const userData = responces.data 
-        if(responces.status == 200)
+        const responces = await axios.post("http://localhost:2000/login",JSON.stringify(luser),
         {
-            console.log("login submiton working ",userData);
+          headers: {
+            'Content-Type': 'application/json',
+            // Additional headers if needed...
+          },
+        })
+        const userData = responces
+        console.log("login submiton working ",userData);
+        if(responces.status ===200)
+        {
+            storeToken()
+            setLuser({
+              email: "",
+              password: "",
+            })
+            navigate("/")
+            
         }
         else{
-        console.log(userData);
+        console.log(userData.data);
         }
         // const data = responces.data
     } catch (error) {
@@ -40,16 +57,14 @@ const loginsubmit= async(e)=>{
   return (
     <div className="formHolder">
       <div className="formContainer">
-       <form on onSubmit={loginsubmit}>
-          
+       <form onSubmit={loginsubmit}>
           <div className="inputField">
-            <input
+            <input           
               type="email"
               autoComplete="off"
               name="email"
               placeholder="Enter your email id"
               id="email"
-              required
               onChange={inputHandeler}
               value={luser.email}
             />
@@ -67,7 +82,7 @@ const loginsubmit= async(e)=>{
             />
           </div>
           <div className="regButton">
-            <button type="submit" id="reg_submit">
+            <button type="submit">
               submit
             </button>
           </div>

@@ -4,6 +4,7 @@ import Chat from "./Pages/Chat"
 import Login from "./Pages/Login"
 import Signup from "./Pages/Signup"
 import NavBar from "./Components/Navbar/NavBar"
+import LogOut from "./Pages/LogOut"
 
 
 function App() {
@@ -15,6 +16,8 @@ function App() {
       <Route path="/"element={<Chat/>} />
       <Route path="/signup"element={<Signup/>}/>
       <Route path="/login" element={<Login/>}/>   
+      <Route path="/logout" element={<LogOut/>}/>   
+
     </Routes>
     </>
   )

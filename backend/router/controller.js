@@ -54,9 +54,10 @@ const login=async(req,res,next)=>{
     else{
     const pwdCompair = await isemailThere.compairePwd(password);
 
-    console.log("password comparision ",pwdCompair);
+    
     if(pwdCompair){
-        res.status(200).json({message : "login successfull",
+        res.status(200).json({
+        // isUser: isemailThere,
         token:await isemailThere.genToke(),
         userId : isemailThere._id.toString()
     })
