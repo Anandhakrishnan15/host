@@ -20,11 +20,12 @@ export const AuthProvider = ({children}) => {
 
   //store token in localstorage function
   const storeToken =(Tokenprovided)=>{
+    setToken(Tokenprovided)
     return localStorage.setItem('Token',Tokenprovided)
 
   }
-  console.log(typeof(token))
-  console.log("did i get the token")
+  let isLogedIn = !!token;
+
   // console.log(typeof(getToken))
   const userLogOut = () => {
     setToken("");
@@ -36,6 +37,7 @@ export const AuthProvider = ({children}) => {
   return (
    <userAuth.Provider value={{
     storeToken,
+    isLogedIn,
     // getToken
     userLogOut,
    }} >

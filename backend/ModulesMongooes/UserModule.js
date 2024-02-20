@@ -14,7 +14,7 @@ const userModule = new mongoose.Schema({
 })
 userModule.pre("save",async function(next){
     const user = this
-    console.log(user);
+    // console.log("log or reg preveusemodule page ",user);
     // check weather the passwor is modified or not 
     if(!user.isModified("password")){
         // if the passwor is not modified go to the next step

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { AuthUser } from "../../AuthContext/AuthProvider";
 const Register = () => {
   // make a state hook to collect the valised from the input
   const [user, setUser] = useState({
@@ -18,6 +19,8 @@ const Register = () => {
       [name]: value,
     });
   };
+   
+    const { storeToken} = AuthUser()
 
   //make a registeration submit funtion to submit all the inputs
   const registerationSubmit = async (e) => {
@@ -26,20 +29,23 @@ const Register = () => {
       const response = await axios.post("http://localhost:2000/register", user);
       // Handle the response from the server (e.g., show a success message)
       console.log("subtion working");
-      const data = response;
+      const data = response.data;
       console.log("Registration successful:", data);
       if (response.status == 200){
+
+        storeToken(data.token)
+
         setUser({
           username: "",
           email: "",
           password: "",
           phone: "",
         });
-      }else{
-        console.log("error found", response.data);
       }
     } catch (error) {
-      console.log("submition failed", error);
+      const er = error.response.data
+      alert(er.message)
+      console.log("submition register failed", error.response.data);
     }
   };
   return (

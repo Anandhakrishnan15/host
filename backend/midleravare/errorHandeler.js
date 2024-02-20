@@ -1,7 +1,7 @@
-const errorHandeler = (error, req, res,next)=>{
-    const statusCode = error.statusCode || 500;
-    const message = error.message ||"erroe";
-    res.status(statusCode).json({statusCode,message})
+const errorHandeler = (err, req, res,next)=>{
+    const status = err.statusCode || 500;
+    const message = err.message ||"erroe";
+    res.status(status).json({status,message})
 }
 module.exports = errorHandeler
 

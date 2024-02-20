@@ -1,15 +1,21 @@
 import React from "react";
 import "./navbar.css";
 import { NavLink } from "react-router-dom";
+import { AuthUser } from "../../AuthContext/AuthProvider";
+
+
 const NavBar = () => {
+  const {isLogedIn} = AuthUser()
   return (
     <div className="navbarCPntainer">
       <div className="logohilder">
         <div className="logo">
-          <h2>ChatBoks</h2>
+          <NavLink to={"/"}><h2>ChatBoks</h2></NavLink>
         </div>
       </div>
       <div className="navholders">
+        {isLogedIn ?( <NavLink to="/logout"><p>Logout</p></NavLink> ) :(
+        <div>
         <NavLink to={"/signup"}>
           <div className="navboxs">
          <p>register</p>
@@ -20,7 +26,7 @@ const NavBar = () => {
          <p>login</p>
           </div>
         </NavLink>
-        <NavLink to="/logout"><p>Logout</p></NavLink>
+        </div>) }
       </div>
     </div>
   );

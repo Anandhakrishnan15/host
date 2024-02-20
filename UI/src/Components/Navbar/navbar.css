@@ -8,6 +8,6 @@
 .navboxs{
 margin: 0 10px;
 }
-.navholders{
+.navholders>div{
     display: flex;
 }
