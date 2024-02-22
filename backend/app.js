@@ -4,7 +4,7 @@ const cors = require ("cors")
 const mongoose = require("mongoose");
 const ConnetDB = require("./database/DBconnect")//import data bse connecction
 const errorHandeler= require("./midleravare/errorHandeler")
-
+const messageRoute = require("./router/messageRoute")
 const router = require("./router/routers")
 
 const app = express()
@@ -12,6 +12,7 @@ const app = express()
  app.use(express.json())
 
  app.use("/",router)
+ app.use("/message",messageRoute)
  app.use(errorHandeler)
 
 const port = process.env.PORT
