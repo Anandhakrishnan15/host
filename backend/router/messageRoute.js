@@ -6,4 +6,7 @@ const conversationController= require("./conversationController")
 
 router.route("/send/:id").post(dataVArification,conversationController.conversationcontoller)
 
+router.route("/:id").get(dataVArification,conversationController.getMessages)
+
+
 module.exports = router

@@ -8,12 +8,12 @@ const conversationcontoller = async (req,res)=>{
         const {message} = req.body;//the mssge from th body 
         const {id:resiversID} = req.params//the resivers id from the parms
         const senderID = req.userId//the senders id from the datavrifiction  
-        console.log(`senders id ${senderID},reisvers id ${resiversID},message${message}`);
+      
         // now create a convestion colletion if the is not created between the sender and resiver
         const converstion= await Conversation.findOne({
             particepitaion:{$all:[senderID,resiversID]},
         })
-        console.log("coverdation find ",converstion);
+      
         // if a cconverstion id not there maek anew converstion
         if(!converstion){
              await Conversation.create({
@@ -26,12 +26,20 @@ const conversationcontoller = async (req,res)=>{
             message,
         })
         if(newMessage){
-            console.log("new message ",newMessage);
+          
             converstion.messages.push(newMessage._id)
         }
-        await converstion.save()
-        await newMessage.save()
-        res.status(200).json({message:"message send succesfully",  newMessage  })
+
+        //SOCKET FUNTIONALITY WILL WOREK OVER HERE
+
+        // await converstion.save()
+        // await newMessage.save()
+        res.status(200).json(newMessage)
+
+        await Promise.all([converstion.save(),newMessage.save()])
+        // console.log(`senders id ${senderID},reisvers id ${resiversID},message${message}`);
+        // console.log("coverdation find ",converstion);
+        // console.log("new message ",newMessage);
         
     } catch (error) {
         console.log("error at converstion controller check it ", error);
@@ -39,4 +47,24 @@ const conversationcontoller = async (req,res)=>{
     }
 }
 
-module.exports ={ conversationcontoller}
+const getMessages = async(req,res)=>{
+    try {
+        const {id:userToSend} = req.params
+        const senderID = req.userId
+
+        const conversaion = await Conversation.findOne({
+            particepitaion:{$all:[senderID,userToSend]}
+        }).populate("messages")
+        if (!conversaion){
+            return    res.status(200).json([])
+        }
+        let text = conversaion.messages
+        res.status(200).json(text)
+        console.log(text);
+    } catch (error) {
+        console.log("error at getmessage controller check it ", error.message);
+        res.status(404).json({message :"internal server error " })
+    }
+}
+
+module.exports ={ conversationcontoller , getMessages}
