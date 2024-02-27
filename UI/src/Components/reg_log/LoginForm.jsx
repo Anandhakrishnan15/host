@@ -9,6 +9,7 @@ const LoginForm = () => {
     email: "siji1234@gmail.com",
     password: "siji1234",
   });
+  console.log(luser);
   const inputHandeler = (e) => {
     console.log(e);
     let name = e.target.name;
@@ -18,7 +19,7 @@ const LoginForm = () => {
       [name]: value,
     });
   };
-  const { storeToken } = AuthUser();
+  const { storeToken ,setUserIdToLS} = AuthUser();
   const navigate = useNavigate();
   // make login form submiter and get the backend and insert or ue the login logic
   // to make any backend or fetch process alwwys user acyns or promise method
@@ -42,6 +43,7 @@ const LoginForm = () => {
     console.log(userData);
       if(responces.status== 200) {
         storeToken(userData.token);
+        setUserIdToLS(userData.userId)
         setLuser({
           email: "",
           password: "",

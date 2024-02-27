@@ -1,0 +1,48 @@
+.ChatboxContainer {
+  width: 99%;
+  border: 1px solid red;
+  margin: auto;
+}
+.chatboxdivider {
+  width: 90%;
+
+  border: 1px solid rgb(255, 230, 0);
+  display: flex;
+  margin: auto;
+}
+.chatboxSideBar {
+  border: 1px solid rgb(49, 216, 15);
+  width: 100%;
+  height: 280px;
+  margin: 5px;
+}
+.tosendHolder {
+  display: flex;
+  border: 1px solid rgb(15, 122, 216);
+}
+.chatboxMessagearea {
+  border: 1px solid rgb(4, 255, 205);
+  width: 100%;
+  background-color: gray;
+  margin: 5px;
+}
+.messageAreaContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 280px;
+}
+.messageResiverNavbar {
+  display: flex;
+  background-color: rgb(6, 6, 6);
+}
+.messageShowArea {
+  height: 250px;
+}
+
+.textbarHolder {
+  position: relative;
+  width: 100%;
+  height: 45px;
+  border: 1px solid rgb(21, 4, 255);
+}

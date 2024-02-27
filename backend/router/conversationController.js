@@ -56,7 +56,7 @@ const getMessages = async(req,res)=>{
             particepitaion:{$all:[senderID,userToSend]}
         }).populate("messages")
         if (!conversaion){
-            return    res.status(200).json([])
+            return res.status(200).json([])
         }
         let text = conversaion.messages
         res.status(200).json(text)

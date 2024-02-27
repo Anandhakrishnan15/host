@@ -8,6 +8,7 @@ const dataVArification = require("../midleravare/jwtVarifier")
 
 
 
+
 // home page 
 router.route("/chat").get(controller.home)
 
@@ -22,7 +23,7 @@ router.route("/login").post(validater(loginVAlidater),controller.login)
 router.route("/user/:userId").get(controller.USER)
 
 //to get all userss data drom the data base
-router.route("/users").get(controller.allUsers)
+router.route("/users").get(dataVArification,controller.allUsers)
 
 //user fetch data 
 router.route("/api/data").get(dataVArification,controller.colletctData)

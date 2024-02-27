@@ -17,26 +17,30 @@ export const userAuth = createContext()
 
 export const AuthProvider = ({children}) => {
   const [token,setToken] = useState(localStorage.getItem("Token"));//store token in localstorage
-
+  const [userid,setUserId]= useState(localStorage.getItem('UserId'))
   //store token in localstorage function
   const storeToken =(Tokenprovided)=>{
     setToken(Tokenprovided)
     return localStorage.setItem('Token',Tokenprovided)
-
   }
   let isLogedIn = !!token;
 
+  const setUserIdToLS= (UserID)=>{
+    return localStorage.setItem("UserId",UserID)
+  }
   // console.log(typeof(getToken))
   const userLogOut = () => {
-    setToken("");
-    return localStorage.removeItem("Token");
-    
+    setToken('');
+    setUserId('');
+    localStorage.removeItem("Token");
+    localStorage.removeItem('UserId');
   };
 
 
   return (
    <userAuth.Provider value={{
     storeToken,
+    setUserIdToLS,
     isLogedIn,
     // getToken
     userLogOut,
