@@ -23,8 +23,8 @@ const dataVArification = async(req,res,next)=>{
         req.userId = userInfor._id
         next()
     } catch (error) {
-        console.log({message: "token notvalified "},error);
-        return res.status(401).json({ msg: "Unanthorized,Token not provided" })
+        // console.log({message: "token notvalified "},error);
+        return res.status(401).json({ message: "Unanthorized,Token not provided" })
     }
 }
 

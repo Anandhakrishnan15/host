@@ -73,7 +73,7 @@ const login = async (req, res) => {
 }
 
 const USER = async (req, res) => {
-    const userId = req.params.userId
+    const userId = req.userId
     try {
         const findUser = await User.findById(userId).select({
             //this select method will make sur that the passwor is not show while the 
