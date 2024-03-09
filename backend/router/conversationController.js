@@ -7,8 +7,8 @@ const conversationcontoller = async (req,res)=>{
         // get the message,senders Id and resiversId and store that in the database
         const {message} = req.body;//the mssge from th body 
         const {id:resiversID} = req.params//the resivers id from the parms
-        const senderID = req.userId//the senders id from the datavrifiction  
-      
+        const senderID = req.data._id//the senders id from the datavrifiction  
+    //   console.log(message,resiversID,senderID);
         // now create a convestion colletion if the is not created between the sender and resiver
         const converstion= await Conversation.findOne({
             particepitaion:{$all:[senderID,resiversID]},
@@ -16,8 +16,9 @@ const conversationcontoller = async (req,res)=>{
       
         // if a cconverstion id not there maek anew converstion
         if(!converstion){
-             await Conversation.create({
-             particepitaion:[senderID,resiversID]
+            let converstion= await Conversation.create({
+             particepitaion:[senderID,resiversID],
+             messages:[]
             })
         }
         const newMessage= new Message({
@@ -26,7 +27,6 @@ const conversationcontoller = async (req,res)=>{
             message,
         })
         if(newMessage){
-          
             converstion.messages.push(newMessage._id)
         }
 

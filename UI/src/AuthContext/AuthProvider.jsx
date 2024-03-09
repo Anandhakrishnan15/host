@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [userid, setUserId] = useState(localStorage.getItem("UserId"));
   const [getAllusers, setGetallUsers] = useState([]);
   const [user, setUser] = useState('');
+  
 
   //store token in localstorage function
   const storeToken = (Tokenprovided) => {
@@ -76,6 +77,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+
   useEffect(() => {
     getAllUsers();
     userFetch();
@@ -88,7 +90,7 @@ export const AuthProvider = ({ children }) => {
         isLogedIn,
         getAllusers,
         user,
-        // getToken
+       token,
         userLogOut,
       }}
     >

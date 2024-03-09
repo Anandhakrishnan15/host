@@ -43,7 +43,7 @@ userModule.methods.compairePwd = async function (password) {
 userModule.methods.genToke=async function(){
     try {
         return jwt.sign({
-            userid:this.id.toString(),
+            userid:this._id.toString(),
             email:this.email,
             admit:this.admit
         },

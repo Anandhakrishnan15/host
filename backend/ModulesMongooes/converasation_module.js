@@ -10,7 +10,7 @@ const conversationModule = new mongoose.Schema({
     ],
    messages:[
         {type:mongoose.Schema.Types.ObjectId,
-        ref:"message",
+        ref:"Message",
         default:[]
         }
     ]

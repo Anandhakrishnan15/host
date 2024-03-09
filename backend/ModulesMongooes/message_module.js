@@ -5,11 +5,13 @@ const mongoose  = require("mongoose");
 const messageModel = new mongoose.Schema({
   senderID :{
     type:mongoose.Schema.Types.ObjectId,
-    ref:"user"
+    ref:"User",
+    require:true
   },
   resiversID :{
     type: mongoose.Schema.Types.ObjectId,
-    ref:"user"
+    ref:"User",
+    require:true
   },
   message:{
     type:String,
