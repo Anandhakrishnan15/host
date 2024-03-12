@@ -6,40 +6,41 @@ const conversationcontoller = async (req,res)=>{
         // console.log("hellooo");
         // get the message,senders Id and resiversId and store that in the database
         const {message} = req.body;//the mssge from th body 
-        const {id:resiversID} = req.params//the resivers id from the parms
-        const senderID = req.data._id//the senders id from the datavrifiction  
+        const {id:resiversID} =req.params//the resivers id from the parms
+        const senderID =req.data._id//the senders id from the datavrifiction  
     //   console.log(message,resiversID,senderID);
         // now create a convestion colletion if the is not created between the sender and resiver
-        const converstion= await Conversation.findOne({
+        let conv= await Conversation.findOne({
             particepitaion:{$all:[senderID,resiversID]},
         })
       
         // if a cconverstion id not there maek anew converstion
-        if(!converstion){
-            let converstion= await Conversation.create({
+        if(!conv){
+           conv= await Conversation.create({
              particepitaion:[senderID,resiversID],
-             messages:[]
             })
         }
         const newMessage= new Message({
-            resiversID,
             senderID,
+            resiversID,
             message,
         })
         if(newMessage){
-            converstion.messages.push(newMessage._id)
+           conv.messages.push(newMessage._id)
+            console.log('new messsages if ', newMessage);
         }
 
         //SOCKET FUNTIONALITY WILL WOREK OVER HERE
 
         // await converstion.save()
         // await newMessage.save()
-        res.status(200).json(newMessage)
 
-        await Promise.all([converstion.save(),newMessage.save()])
+        await Promise.all([conv.save(),newMessage.save()])
         // console.log(`senders id ${senderID},reisvers id ${resiversID},message${message}`);
         // console.log("coverdation find ",converstion);
         // console.log("new message ",newMessage);
+        res.status(200).json(newMessage)
+
         
     } catch (error) {
         console.log("error at converstion controller check it ", error);

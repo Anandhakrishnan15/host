@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:2000/users", {
+      const response = await axios.get("http://localhost:2000/getusers", {
         // method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
       });
       // console.log(response);
       if (response.status === 200) {
-        const data = response.data.allUsers;
+        const data = response.data;
         // console.log("if responce id ok the ",data.allUsers);
         setGetallUsers(data);
       }
@@ -67,8 +67,8 @@ export const AuthProvider = ({ children }) => {
       });
       
       if (response.status === 200) {
-        const data = response.data;
-        // console.log("if responce id ok the ",data.allUsers);
+        const data = response.data
+        // console.log("if responce id ok the ",data);
         setUser(data);
         // console.log( "user logic fetch",data);
       }

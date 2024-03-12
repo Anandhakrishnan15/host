@@ -20,10 +20,10 @@ router.route("/register").post(validater(registerValidatioin),controller.registe
 router.route("/login").post(validater(loginVAlidater),controller.login)
 
 //find use bt paramerte id
-router.route("/user/").get(dataVArification,controller.USER)
+router.route("/user").get(dataVArification,controller.USER)
 
 //to get all userss data drom the data base
-router.route("/users").get(dataVArification,controller.allUsers)
+router.route("/getusers").get(dataVArification,controller.allUsers)
 
 //user fetch data 
 router.route("/api/data").get(dataVArification,controller.colletctData)

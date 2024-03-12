@@ -20,7 +20,7 @@ const app = express()
 const port = process.env.PORT
  ConnetDB().then(()=>{
     app.listen(port,()=>{//
-        console.log(`server connected with port  ${port}`);
+        console.log(`server connected with port ${port}`);
     })
  })
 
