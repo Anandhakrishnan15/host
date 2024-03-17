@@ -44,22 +44,23 @@ const conversationcontoller = async (req,res)=>{
         
     } catch (error) {
         console.log("error at converstion controller check it ", error);
-        res.status(404).json({message :"internal error " })
+        res.status(404).json({msg :"internal error " })
     }
 }
 
 const getMessages = async(req,res)=>{
     try {
         const {id:userToSend} = req.params
-        const senderID = req.userId
+        const senderID= req.data._id
 
         const conversaion = await Conversation.findOne({
             particepitaion:{$all:[senderID,userToSend]}
         }).populate("messages")
+        // res.status(200).json(conversaion.messages)
         if (!conversaion){
             return res.status(200).json([])
         }
-        let text = conversaion.messages
+        const text = conversaion.messages
         res.status(200).json(text)
         console.log(text);
     } catch (error) {
