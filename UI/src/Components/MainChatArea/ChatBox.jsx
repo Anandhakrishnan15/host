@@ -7,22 +7,16 @@ import SidebarMap from "./SidebarMap";
 import userConverston from "../../Zustand/userConversations";
 import GetMessage from "./MessageArea/TextMessage";
 import TextMessage from "./MessageArea/TextMessage";
+import io from "socket.io-client";
 
 const ChatBox = () => {
   const [message, setMessage] = useState("");
   const { selectedConversation, messages, setMessages } = userConverston();
   const [loading, setLoading] = useState(false);
   const { isLogedIn, token } = AuthUser();
+  
 
-  // const textmessagecontroller = (e) => {
-  //   console.log(e);
-  //   let name = e.target.name;
-  //   let value = e.target.value;
-  //   setText({
-  //     ...text,
-  //     [name]: value,
-  //   });
-  // };
+
 
   useEffect(() => {
     setMessage(""); // Reset the message state whenever selectedConversation changes
@@ -80,39 +74,43 @@ const ChatBox = () => {
         <SidebarMap />
         <div className="chatboxMessagearea">
           <div className="messageAreaContainer">
-            {!selectedConversation ? ( <h1>No converstaion selected yet</h1> ):(
+            {!selectedConversation ? (
+              <h1>No converstaion selected yet</h1>
+            ) : (
               <>
-              <div className="messageResiverNavbar">
-              {selectedconverastion ? (<p>{selectedconverastion.username}</p>) : ("")}
-            </div>
-            <TextMessage />
-            <div className="textbarHolder">
-              <div className="textbar">
-                <form onSubmit={textmessageSend}>
-                  <input
-                    type="text"
-                    name="message"
-                    id="message"
-                    autoComplete="off"
-                    placeholder="text here..."
-                    onChange={(e) => setMessage(e.target.value)}
-                    value={message}
-                  />
-                  <button type="submit">
-                    {loading ? <p>sending</p> : <p>send</p>}
-                  </button>
-                </form>
-              </div>
-            </div>
+                <div className="messageResiverNavbar">
+                  {selectedconverastion ? (
+                    <p>{selectedconverastion.username}</p>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <TextMessage />
+                <div className="textbarHolder">
+                  <div className="textbar">
+                    <form onSubmit={textmessageSend}>
+                      <input
+                        type="text"
+                        name="message"
+                        id="message"
+                        autoComplete="off"
+                        placeholder="text here..."
+                        onChange={(e) => setMessage(e.target.value)}
+                        value={message}
+                      />
+                      <button type="submit">
+                        {loading ? <p>sending</p> : <p>send</p>}
+                      </button>
+                    </form>
+                  </div>
+                </div>
               </>
             )}
-            
-           
+
             {/* <div className="messageShowArea">
               <p>nasldnals</p>
               <p>janldsjfnasldjn</p>
             </div> */}
-            
           </div>
         </div>
       </div>

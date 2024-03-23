@@ -29,6 +29,7 @@ export const AuthProvider = ({ children }) => {
   let isLogedIn = !!token;
 
   const setUserIdToLS = (UserID) => {
+    setUserId(UserID)
     return localStorage.setItem("UserId", UserID);
   };
   // console.log(typeof(getToken))
@@ -91,6 +92,7 @@ export const AuthProvider = ({ children }) => {
         getAllusers,
         user,
        token,
+       userid,
         userLogOut,
       }}
     >
