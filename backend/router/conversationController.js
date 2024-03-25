@@ -1,5 +1,6 @@
 const Conversation = require("../ModulesMongooes/converasation_module");
-const Message = require ("../ModulesMongooes/message_module")
+const Message = require ("../ModulesMongooes/message_module");
+const { getSocketResiver, io } = require("../SocketServer/SocketServer");
 const conversationcontoller = async (req,res)=>{
      //now we will stoer the messages and the cnvestion betten the users
     try {
@@ -30,17 +31,18 @@ const conversationcontoller = async (req,res)=>{
             console.log('new messsages if ', newMessage);
         }
 
-        //SOCKET FUNTIONALITY WILL WOREK OVER HERE
-
-        // await converstion.save()
-        // await newMessage.save()
-
         await Promise.all([conv.save(),newMessage.save()])
         // console.log(`senders id ${senderID},reisvers id ${resiversID},message${message}`);
         // console.log("coverdation find ",converstion);
         // console.log("new message ",newMessage);
-        res.status(200).json(newMessage)
 
+//SOCKET SERVER LOGIN 
+const resiversSocketID = getSocketResiver(resiversID)
+if(resiversSocketID){
+    io.to(resiversSocketID).emit('newMessage',newMessage)
+}
+
+        res.status(200).json(newMessage)
         
     } catch (error) {
         console.log("error at converstion controller check it ", error);

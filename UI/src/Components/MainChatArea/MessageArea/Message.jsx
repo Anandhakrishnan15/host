@@ -14,7 +14,7 @@ const Message = ({messages}) => {
     <div className={`${messageCloudeHolder}`}>
       <div className="messageCloudeHolder">
         <div className="cloudeSendeOrResive">
-          <div className="clousename">{profilID}</div>
+          <div className="clousename">{profilID} {whoSend}</div>
           <div className="cloudemessage">{messages.message}</div>
         </div>
       </div>

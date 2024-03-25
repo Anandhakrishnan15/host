@@ -2,11 +2,13 @@ import React, { useEffect, useRef } from "react";
 import GetUsersMessages from "./GetUsersMessages";
 import Message from "./Message";
 import "./MessageClouse.css";
+import MessageLisinging from "./MessageLisinging";
 
 const TextMessage = () => {
   const { messages, lodaing } = GetUsersMessages();
+  MessageLisinging()
   const scrollDown = useRef()
-  console.log(messages);
+  // console.log(messages);
 
   useEffect(()=>{
     scrollDown.current?.scrollIntoView({behavior:'smooth'})
