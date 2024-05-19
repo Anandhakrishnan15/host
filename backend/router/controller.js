@@ -73,28 +73,26 @@ const login = async (req, res) => {
 }
 
 const USER = async (req, res) => {
-    const userId = req.userId
+    const userId = req.data._id
     try {
         const findUser = await User.findById(userId).select({
             //this select method will make sur that the passwor is not show while the 
             password: 0
         })
         res.status(200).json(findUser)
+        // console.log('find users',findUser);
 
     } catch (error) {
         res.status(403).send("user id error ", error) 
     }
-
 }
+
 const allUsers = async (req, res) => {
-  
     try {
-       const senderId = req.userId;
+       const senderId = req.data._id
         //get all the data from the database and make suer that the passwor and other imp data are not shown
         const getAllUssers = await User.find({_id:{$ne:senderId}}).select({ password: 0 })//to hide the password
-        res.status(200).json({
-            allUsers: getAllUssers
-        })
+        res.status(200).json(getAllUssers)
     } catch (error) {
         res.status(403).send("error to find all users ", error)
 

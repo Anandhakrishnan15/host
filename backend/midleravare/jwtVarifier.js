@@ -20,7 +20,7 @@ const dataVArification = async(req,res,next)=>{
         })
         req.data = userInfor;
         req.token = token;
-        req.userId = userInfor._id
+        // req.userId = userInfor._id
         next()
     } catch (error) {
         // console.log({message: "token notvalified "},error);

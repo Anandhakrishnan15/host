@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
   const [userid, setUserId] = useState(localStorage.getItem("UserId"));
   const [getAllusers, setGetallUsers] = useState([]);
   const [user, setUser] = useState('');
+  
 
   //store token in localstorage function
   const storeToken = (Tokenprovided) => {
@@ -28,6 +29,7 @@ export const AuthProvider = ({ children }) => {
   let isLogedIn = !!token;
 
   const setUserIdToLS = (UserID) => {
+    setUserId(UserID)
     return localStorage.setItem("UserId", UserID);
   };
   // console.log(typeof(getToken))
@@ -40,7 +42,7 @@ export const AuthProvider = ({ children }) => {
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:2000/users", {
+      const response = await axios.get("http://localhost:2000/getusers", {
         // method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -48,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       });
       // console.log(response);
       if (response.status === 200) {
-        const data = response.data.allUsers;
+        const data = response.data;
         // console.log("if responce id ok the ",data.allUsers);
         setGetallUsers(data);
       }
@@ -66,8 +68,8 @@ export const AuthProvider = ({ children }) => {
       });
       
       if (response.status === 200) {
-        const data = response.data;
-        // console.log("if responce id ok the ",data.allUsers);
+        const data = response.data
+        // console.log("if responce id ok the ",data);
         setUser(data);
         // console.log( "user logic fetch",data);
       }
@@ -75,6 +77,7 @@ export const AuthProvider = ({ children }) => {
       console.log("get user data fetch error ",error);
     }
   };
+
 
   useEffect(() => {
     getAllUsers();
@@ -88,7 +91,8 @@ export const AuthProvider = ({ children }) => {
         isLogedIn,
         getAllusers,
         user,
-        // getToken
+       token,
+       userid,
         userLogOut,
       }}
     >

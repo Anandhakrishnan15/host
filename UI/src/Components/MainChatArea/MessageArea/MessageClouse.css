@@ -1,0 +1,18 @@
+.cloudred {
+  border: 1px solid red;
+}
+.cloudblue{
+  border: 1px solid blue;
+
+}
+.clousename {
+  font-size: 8px;
+}
+.cloudeSendeOrResive {
+  padding: 5px;
+}
+
+.messageShowArea {
+    overflow-y: scroll; /* or overflow-y: auto; */
+ 
+}
