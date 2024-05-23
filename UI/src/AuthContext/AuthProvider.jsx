@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("Token")); //store token in localstorage
   const [userid, setUserId] = useState(localStorage.getItem("UserId"));
   const [getAllusers, setGetallUsers] = useState([]);
+  const [frinds,setfrineds] = useState([])
   const [user, setUser] = useState('');
   
 
@@ -42,7 +43,7 @@ export const AuthProvider = ({ children }) => {
 
   const getAllUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:2000/getusers", {
+      const response = await axios.get("http://localhost:2000/getfriends", {
         // method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -80,8 +81,11 @@ export const AuthProvider = ({ children }) => {
 
 
   useEffect(() => {
-    getAllUsers();
-    userFetch();
+    if (isLogedIn) {
+      getAllUsers();
+      userFetch();
+    }
+    return () => clearTimeout(getAllUsers)
   }, [isLogedIn]);
   return (
     <userAuth.Provider

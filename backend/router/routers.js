@@ -28,6 +28,8 @@ router.route("/getusers").get(dataVArification,controller.allUsers)
 //user fetch data 
 router.route("/api/data").get(dataVArification,controller.colletctData)
 
+router.route("/getfriends").get(dataVArification,controller.getAllParticipationIds)
+
 
 
 module.exports = router

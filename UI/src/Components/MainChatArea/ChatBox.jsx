@@ -13,29 +13,27 @@ const ChatBox = () => {
   const [message, setMessage] = useState("");
   const { selectedConversation, messages, setMessages } = userConverston();
   const [loading, setLoading] = useState(false);
-  const { isLogedIn, token } = AuthUser();
+  const {token } = AuthUser();
   
 
 
 
   useEffect(() => {
     setMessage(""); // Reset the message state whenever selectedConversation changes
+   
   }, [selectedConversation]);
 
-  const selectedconverastion = selectedConversation;
+  // const selectedConversation = selectedConversation;
   const textmessageSend = async (e) => {
-    setLoading(true);
+   
     e.preventDefault();
-
-    // if (!isLogedIn) {
-    //   console.log("User not authenticated");
-    //   return;
-    // }
+    setLoading(true);
+  
     if (!message) {
       alert("no text  to send");
       return setLoading(false);
     }
-    console.log("selectedconves", selectedconverastion);
+    console.log("selectedconves", selectedConversation);
     try {
       const response = await axios.post(
         `http://localhost:2000/message/send/${selectedConversation._id}`,
@@ -79,8 +77,8 @@ const ChatBox = () => {
             ) : (
               <>
                 <div className="messageResiverNavbar">
-                  {selectedconverastion ? (
-                    <p>{selectedconverastion.username}</p>
+                  {selectedConversation ? (
+                    <p>{selectedConversation.username}</p>
                   ) : (
                     ""
                   )}

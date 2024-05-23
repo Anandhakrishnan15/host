@@ -71,4 +71,5 @@ const getMessages = async(req,res)=>{
     }
 }
 
-module.exports ={ conversationcontoller , getMessages}
+  module.exports = { conversationcontoller, getMessages };
+

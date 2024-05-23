@@ -11,9 +11,10 @@ const LoginForm = () => {
   });
   console.log(luser);
   const inputHandeler = (e) => {
-    console.log(e);
-    let name = e.target.name;
-    let value = e.target.value;
+    // console.log(e);
+    const { name, value } = e.target;
+    // let name = e.target.name;
+    // let value = e.target.value;
     setLuser({
       ...luser,
       [name]: value,

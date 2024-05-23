@@ -1,6 +1,7 @@
 // importing the user module
 // const { response } = require("express")
 const User = require("../ModulesMongooes/UserModule")
+const Conversation = require("../ModulesMongooes/converasation_module")
 
 const home = async (req, res) => {
     try {
@@ -112,5 +113,23 @@ const colletctData = async (req, res, next) => {
     }
 
 }
+const getAllParticipationIds = async (req, res) => {
+    try {
+      const userId = req.data._id;
+      console.log(userId);
+  
+      const conversations = await Conversation.find(
+        { particepitaion: { $in: [userId] } },
+        { particepitaion: { $elemMatch: { $ne: userId } } }
+      );
+      const participationIds = conversations.map(conversation => conversation.particepitaion[0]);
+      const getFriends = await User.find({_id :{$in :participationIds }},{password:0 })
+      res.status(200).json(getFriends);
+    } catch (error) {
+      console.log("error at get all participation ids controller check it ", error.message);
+      res.status(404).json({ message: "internal server error " });
+    }
+  };
 
-module.exports = { home, register, login, USER, allUsers, colletctData }
+
+module.exports = { home, register, login, USER, allUsers, colletctData ,getAllParticipationIds}

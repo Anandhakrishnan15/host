@@ -5,11 +5,11 @@ import { AuthUser } from "../../AuthContext/AuthProvider";
 const SidebarMap = () => {
   const { getAllusers } = AuthUser();
   // const {selectedConversation,setSelectedConversation} = userConverston()
-  useEffect(() => {
-    if (getAllusers) {
-      console.log(getAllusers);
-    }
-  }, [getAllusers]);
+  // useEffect(() => {
+  //   if (getAllusers) {
+  //     console.log("all users a",getAllusers);
+  //   }
+  // }, [getAllusers]);
   return (
     <div className="chatboxSideBar">
       {getAllusers.map((conversation,conversayionIndex) => (
