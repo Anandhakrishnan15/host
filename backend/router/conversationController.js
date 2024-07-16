@@ -41,7 +41,6 @@ const resiversSocketID = getSocketResiver(resiversID)
 if(resiversSocketID){
     io.to(resiversSocketID).emit('newMessage',newMessage)
 }
-
         res.status(200).json(newMessage)
         
     } catch (error) {
@@ -54,17 +53,18 @@ const getMessages = async(req,res)=>{
     try {
         const {id:userToSend} = req.params
         const senderID= req.data._id
+        // const limitMsg = parseInt(req.query._limit) || 10;
 
         const conversaion = await Conversation.findOne({
             particepitaion:{$all:[senderID,userToSend]}
         }).populate("messages")
         // res.status(200).json(conversaion.messages)
         if (!conversaion){
-            return res.status(200).json([])
+            return res.status(200).json()
         }
         const text = conversaion.messages
         res.status(200).json(text)
-        console.log(text);
+        // console.log('text',text); get all the text from the data base 
     } catch (error) {
         console.log("error at getmessage controller check it ", error.message);
         res.status(404).json({message :"internal server error " })

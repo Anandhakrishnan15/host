@@ -18,8 +18,10 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("Token")); //store token in localstorage
   const [userid, setUserId] = useState(localStorage.getItem("UserId"));
   const [getAllusers, setGetallUsers] = useState([]);
-  const [frinds,setfrineds] = useState([])
+  const [limit,setlimit] = useState(10)
   const [user, setUser] = useState('');
+  const [totalCount,setTotalcount]= useState(0)
+  const [notifiaction,setNotifiaction] = useState([])
   
 
   //store token in localstorage function
@@ -40,25 +42,46 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("Token");
     localStorage.removeItem("UserId");
   };
-
   const getAllUsers = async () => {
     try {
-      const response = await axios.get("http://localhost:2000/getfriends", {
-        // method: "GET",
+      const response = await fetch(`http://localhost:2000/getfriends?_limit=${limit}`, {
+
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      // console.log(response);
+      const data = await response.json();
+      console.log('response', data);
       if (response.status === 200) {
-        const data = response.data;
-        // console.log("if responce id ok the ",data.allUsers);
-        setGetallUsers(data);
+        setGetallUsers(data.data);
+        setTotalcount(data.totalCount)
       }
     } catch (error) {
       console.log("get All Users error ", error);
     }
   };
+  // const getAllUsers = async () => {
+  //   try {
+  //     const response = await axios.get(`http://localhost:2000/getfriends`, {
+
+  //       // method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },    
+  //     });
+      
+  //     console.log('responce', response.data);
+  //     // console.log(response);
+  //     if (response.status === 200) {
+  //       const data = response.data;
+  //       // console.log("if responce id ok the ",data.allUsers);
+  //       setGetallUsers(data);
+  //     }
+  //   } catch (error) {
+  //     console.log("get All Users error ", error);
+  //   }
+  // };
   const userFetch = async () => {
     try {
       const response = await axios.get("http://localhost:2000/user", {
@@ -79,14 +102,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-
   useEffect(() => {
-    if (isLogedIn) {
-      getAllUsers();
+    if (isLogedIn) { 
       userFetch();
+      getAllUsers();
     }
-    return () => clearTimeout(getAllUsers)
   }, [isLogedIn]);
+
+  useEffect(()=>{
+    getAllUsers();
+    // clearTimeout(getAllUsers)
+  },[limit])
   return (
     <userAuth.Provider
       value={{
@@ -95,9 +121,13 @@ export const AuthProvider = ({ children }) => {
         isLogedIn,
         getAllusers,
         user,
-       token,
-       userid,
+        token,
+        userid,
+        setlimit,
+        limit,
+        totalCount,
         userLogOut,
+        notifiaction,setNotifiaction,
       }}
     >
       {/* {pass the childrens to the authprovider} */}

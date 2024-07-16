@@ -6,10 +6,9 @@ import MessageLisinging from "./MessageLisinging";
 
 const TextMessage = () => {
   const { messages, lodaing } = GetUsersMessages();
-  MessageLisinging()
+ MessageLisinging()
   const scrollDown = useRef()
-  // console.log(messages);
-
+  // when the message list change (after new message added) then scroll to the bottom of the div  with id "messageShowArea"  to show the new message
   useEffect(()=>{
     scrollDown.current?.scrollIntoView({behavior:'smooth'})
   },[messages])

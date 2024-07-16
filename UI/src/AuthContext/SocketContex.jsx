@@ -21,7 +21,7 @@ export const SocketProvider = ({ children }) => {
       setSocket(socket)
       socket.on("getonline",(users)=>{
         setOnlineUsers(users)
-      })
+      })      
 
       return()=>socket.close()
     }

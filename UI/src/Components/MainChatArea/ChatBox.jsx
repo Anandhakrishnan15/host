@@ -33,7 +33,9 @@ const ChatBox = () => {
       alert("no text  to send");
       return setLoading(false);
     }
+
     console.log("selectedconves", selectedConversation);
+    
     try {
       const response = await axios.post(
         `http://localhost:2000/message/send/${selectedConversation._id}`,
@@ -68,6 +70,7 @@ const ChatBox = () => {
 
   return (
     <div className="ChatboxContainer">
+      <div>notifiaction</div>
       <div className="chatboxdivider">
         <SidebarMap />
         <div className="chatboxMessagearea">

@@ -4,11 +4,12 @@ import { AuthUser } from "../../../AuthContext/AuthProvider";
 import userConverston from "../../../Zustand/userConversations";
 const Message = ({messages}) => {
   const { user } = AuthUser();
-  const { selectedConversation } = userConverston();
+  const { selectedConversation} = userConverston();
   const fromME = messages.senderID === user._id;
   const whoSend = fromME ? "reply" : "send";
   const profilID = fromME ? user.username : selectedConversation.username;
   const messageCloudeHolder = fromME ? "cloudred" : "cloudblue";
+  // console.log('new message ', notifiaction);
 
   return (
     <div className={`${messageCloudeHolder}`}>
